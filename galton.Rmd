@@ -1,0 +1,49 @@
+# Galton study and examples of linear regression
+
+---
+title: "Galton study"
+author: "VBE"
+date: "15 December 2018"
+output: 
+  html_document: 
+    keep_md: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Loading data
+
+
+
+```{r load}
+library(UsingR)
+data("Galton")
+data(galton)
+summary(galton)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r plot1, }
+library(reshape2)
+g <- ggplot(galton, aes(x = child, y = parent))
+g <- g + geom_point(aes(size = 10, color = "red"))
+g <- g + geom_jitter()
+# g
+
+galton_melt <- melt(data = galton,value.name = "size",variable.name = "person")
+g1 <- ggplot(galton_melt, aes(x= size, fill = person))
+g1 <- g1 + geom_histogram(color = "white", binwidth = 1)
+g1 <- g1 + facet_wrap(. ~ person)
+# g1
+
+library(gridExtra)
+grid.arrange(g, g1, nrow = 2,
+             top = "Galton study")
+```
+
+
